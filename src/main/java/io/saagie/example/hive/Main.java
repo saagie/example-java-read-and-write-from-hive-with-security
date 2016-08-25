@@ -51,15 +51,19 @@ public class Main {
 			Statement stmt = con.createStatement();
 			// Execute DROP TABLE Query
 			stmt.execute(sqlStatementDrop);
+			logger.info("Drop Hive table with security : OK");
 			// Execute CREATE Query
 			stmt.execute(sqlStatementCreate);
+			logger.info("Create Hive table with security : OK");
 			// Execute INSERT Query
 			stmt.execute(sqlStatementInsert);
+			logger.info("Insert into Hive table with security : OK");
 			// Execute SELECT Query
 			ResultSet rs = stmt.executeQuery(sqlStatementSelect);
 			while(rs.next()) {
 				logger.info(rs.getString(1));
 			}
+			logger.info("Select from Hive table with security : OK");
 
 		} catch (Exception e) {
 			logger.severe(e.getMessage());
