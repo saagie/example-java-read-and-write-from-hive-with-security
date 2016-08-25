@@ -13,16 +13,26 @@ public class Main {
 	private static final Logger logger = Logger.getLogger("io.saagie.example.hive.Main");
 	private static final String JDBC_DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
 	private static String connectionUrl;
+	private static String user;
+	private static String password;
 
 	public static void main(String[] args) throws IOException {
 
 		if (args.length < 1) {
-			logger.severe("1 arg is required :\n\t- connectionurl ex: jdbc:hive2://hiveserver:10000/;ssl=false");
-			System.err.println("1 arg is required :\n\t-connectionurl  ex: jdbc:hive2://hiveserver:10000/;ssl=false");
+			logger.severe("3 arg are required :\n\t- connectionurl ex: jdbc:hive2://hiveserver:10000/;ssl=false \n" +
+					"\t-user\n" +
+					"\t-password");
+			System.err.println("3 args are required :\n\t-connectionurl  ex: jdbc:hive2://hiveserver:10000/;ssl=false \n" +
+					"\t-user\n" +
+					"\t-password");
 			System.exit(128);
 		}
 		// Get url Connection
 		connectionUrl = args[0];
+		// Get user
+		user = args[1];
+		// Get password
+		password = args[2];
 
 		// Init Connection
 		Connection con = null;
@@ -36,7 +46,7 @@ public class Main {
 			// Set JDBC Hive Driver
 			Class.forName(JDBC_DRIVER_NAME);
 			// Connect to Hive
-			con = DriverManager.getConnection(connectionUrl,"hdfs","");
+			con = DriverManager.getConnection(connectionUrl,user,password);
 			// Init Statement
 			Statement stmt = con.createStatement();
 			// Execute DROP TABLE Query
